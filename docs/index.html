@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FlipBook | Free one-click file sharing for video, documents and sessions</title>
+  <title>FlipBook | Static viewers for documents, video, collections, and sessions</title>
   <meta
     name="description"
-    content="Free one-click file sharing for video, documents and browser sessions. Turn files and URLs into fast static apps hosted on Cloudflare Pages."
+    content="Turn documents, video, image sets, collection folders, and BrowserBox sessions into fast static viewers hosted on Cloudflare Pages."
   >
   <link rel="canonical" href="https://flipbook.browserbox.io/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://flipbook.browserbox.io/">
-  <meta property="og:title" content="FlipBook | Free one-click file sharing for video and documents">
-  <meta property="og:description" content="Turn videos, documents, and browser sessions into fast static flipbooks. One-click publishing to Cloudflare Pages.">
+  <meta property="og:title" content="FlipBook | Static viewers for documents, video, and collections">
+  <meta property="og:description" content="Turn documents, video, folders of mixed media, and BrowserBox sessions into fast static flipbooks. One-command publishing to Cloudflare Pages.">
   <meta property="og:image" content="https://flipbook.browserbox.io/assets/branding/flipbook-mark-512.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://flipbook.browserbox.io/">
-  <meta property="twitter:title" content="FlipBook | Free one-click file sharing for video and documents">
-  <meta property="twitter:description" content="Turn videos, documents, and browser sessions into fast static flipbooks. One-click publishing to Cloudflare Pages.">
+  <meta property="twitter:title" content="FlipBook | Static viewers for documents, video, and collections">
+  <meta property="twitter:description" content="Turn documents, video, folders of mixed media, and BrowserBox sessions into fast static flipbooks. One-command publishing to Cloudflare Pages.">
   <meta property="twitter:image" content="https://flipbook.browserbox.io/assets/branding/flipbook-mark-512.png">
 
   <meta name="theme-color" content="#2563eb">
@@ -33,7 +33,7 @@
       "name": "FlipBook",
       "operatingSystem": "Windows, Linux, macOS",
       "applicationCategory": "MultimediaApplication, UtilitiesApplication",
-      "description": "Free one-click file sharing for video, documents and browser sessions. Turn files into fast static apps hosted on Cloudflare Pages.",
+      "description": "Turn documents, video, image sets, collection folders, and BrowserBox sessions into fast static viewers hosted on Cloudflare Pages.",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -58,6 +58,7 @@
       </a>
       <div class="nav-links">
         <a href="#demos">Demos</a>
+        <a href="#usage">Usage</a>
         <a href="#install">Install</a>
         <a href="#faq">FAQ</a>
       </div>
@@ -66,13 +67,13 @@
 
   <header class="hero">
     <div class="container narrow">
-      <h1 class="hero-title">Static flipbooks of complex media.</h1>
+      <h1 class="hero-title">Static viewers for complex media.</h1>
       <p class="hero-subtitle">
-        <strong>Free one-click file sharing for video, documents and browser sessions.</strong>
+        <strong>Documents, video, image sets, collections, and browser sessions as shareable URLs.</strong>
       </p>
       <p class="hero-description">
-        FlipBook converts documents, slide decks, spreadsheets, videos, images, and BrowserBox
-        recordings into fast page streams and automatically hosts them on Cloudflare Pages as shareable links.
+        FlipBook converts source media into a polished static viewer with fast scrubbing,
+        thumbnail-to-full loading, microfilm-style playback, and optional Cloudflare Pages publishing.
       </p>
       <div class="hero-ctas">
         <a class="button primary" href="#install">Install</a>
@@ -102,7 +103,8 @@
     <div class="container narrow text-center">
       <p class="lead-text">
         The output is just static HTML, CSS, JavaScript, and image assets. No runtime server is
-        required. FlipBook automatically publishes to Cloudflare Pages and gives you back a shareable link.
+        required. FlipBook can publish to Cloudflare Pages and gives you back a shareable link,
+        or it can stop at a local static export with <code>--no-deploy</code>.
       </p>
     </div>
   </section>
@@ -120,17 +122,53 @@
       <div class="flow-grid">
         <div class="flow-step">
           <h3>Convert</h3>
-          <p>Feed FlipBook a PDF, Office document, image set, video, or URL.</p>
+          <p>Feed FlipBook a PDF, Office document, image, image directory, video, collection folder, or URL.</p>
         </div>
         <div class="flow-step">
           <h3>Generate</h3>
-          <p>FlipBook renders pages or frames and emits a static viewer with a lightweight manifest.</p>
+          <p>FlipBook renders pages or frames and emits a static viewer with manifests, pages, and thumbnails.</p>
         </div>
         <div class="flow-step">
           <h3>Publish</h3>
           <p>FlipBook automatically publishes to Cloudflare Pages and hands you a shareable link.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="usage" class="section">
+    <div class="container">
+      <h2 class="section-title">Common Commands</h2>
+      <div class="command-grid">
+        <div class="command-card">
+          <h3>Single document</h3>
+          <code>flipbook report.pdf --title "Report"</code>
+        </div>
+        <div class="command-card">
+          <h3>Video fast scan</h3>
+          <code>flipbook clip.mp4 --fps 24 --quality 88</code>
+        </div>
+        <div class="command-card">
+          <h3>Image directory</h3>
+          <code>flipbook ./screenshots --title "Gallery"</code>
+        </div>
+        <div class="command-card">
+          <h3>Collection folder</h3>
+          <code>flipbook --from-folder ./archive --title "Archive reel"</code>
+        </div>
+        <div class="command-card">
+          <h3>Local-only output</h3>
+          <code>flipbook --from-folder ./archive --no-deploy --private-output-dir ./out</code>
+        </div>
+        <div class="command-card">
+          <h3>Browser session</h3>
+          <code>flipbook https://example.com --title "Site tour" --open</code>
+        </div>
+      </div>
+      <p class="small-text text-center mt-4">
+        Collection folders can include <code>flipbook.json</code>, <code>collection.json</code>, or
+        <code>manifest.json</code> for ordering, titles, links, descriptions, tags, and source metadata.
+      </p>
     </div>
   </section>
 
@@ -143,8 +181,8 @@
         you flatten the source into static pages and a viewer that is fast to inspect and easy to host.
       </p>
       <p>
-        That makes it a good fit for product docs, release decks, archived videos, captured browser
-        sessions, and any artifact where scrubbing matters more than native editing.
+        That makes it a good fit for product docs, release decks, archived videos, mixed evidence
+        folders, captured browser sessions, and any artifact where scrubbing matters more than native editing.
       </p>
     </div>
   </section>

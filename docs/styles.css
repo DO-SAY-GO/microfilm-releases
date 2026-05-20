@@ -388,6 +388,34 @@ code {
     font-size: 0.95rem;
 }
 
+.command-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-5);
+}
+
+.command-card {
+    padding: var(--space-5);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.04);
+}
+
+.command-card h3 {
+    margin-bottom: var(--space-3);
+}
+
+.command-card code {
+    display: block;
+    overflow-x: auto;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--bg-muted);
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
 .text-block p {
     margin-bottom: 1.25rem;
     font-size: 1.05rem;

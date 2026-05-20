@@ -12,12 +12,21 @@ A fast, static landing page designed to be calm, legible, and easy to deploy.
 ## How To Edit Content
 
 1. Copy adjustments: open `index.html` and edit the text directly.
-2. Replacing demo slots: open `config.js` and modify the `demos` array.
-3. Updating FAQs: open `config.js` and modify the `faqs` array.
+2. Updating command examples or the main product copy: open `index.html`.
+3. Replacing demo slots: open `config.js` and modify the `demos` array.
+4. Updating FAQs: open `config.js` and modify the `faqs` array.
 
 ## Publishing Source
 
 This site is intended to be served from the `docs/` folder via Cloudflare Pages.
+It should describe the current public CLI surface, especially:
+
+- single-file document/video/image conversion
+- positional image-directory gallery mode
+- `--from-folder` collection mode
+- `--no-deploy` local static export
+- `--force-pages` for overriding large collection deployment guards
+- BrowserBox URL mode as an optional licensed integration
 
 ## Cloudflare Pages
 

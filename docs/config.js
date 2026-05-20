@@ -1,6 +1,15 @@
 export const siteConfig = {
     demos: [
         {
+            title: "WAR.GOV/UFO Microfilm2",
+            description: "A large multi-source archive presented as one fast microfilm viewer with 24fps playback, virtualized thumbnails, and source metadata.",
+            badge: "Collection",
+            link: "https://hypergrid.systems/war.gov-ufo-viewer/microfilm2?frame=20752&page=20752",
+            thumbnailImage: "https://hypergrid.systems/viewers/items/092-dow-uap-pr35-unresolved-uap-report-greece-october-2023/site/pages/000552.jpg",
+            thumbnailAlt: "A WAR.GOV/UFO archive frame rendered in the FlipBook microfilm viewer",
+            thumbnailText: "55k+ frames"
+        },
+        {
             title: "Bitcoin Whitepaper",
             description: "The original Bitcoin paper rendered as a clean 9-page static document viewer.",
             badge: "PDF",
@@ -103,11 +112,15 @@ export const siteConfig = {
     faqs: [
         {
             q: "What is FlipBook?",
-            a: "FlipBook is a utility that turns files and sessions into static directories of pages and frames, accompanied by a lightweight viewer. The output is highly scrubbable and fast to browse."
+            a: "FlipBook is a utility that turns files, folders, and sessions into static directories of pages, frames, manifests, and thumbnails, accompanied by a polished viewer. The output is highly scrubbable and fast to browse."
         },
         {
             q: "What kinds of content can it publish?",
-            a: "Currently, FlipBook supports videos, PDFs, and Office documents (PowerPoint, Excel, Word). It also supports BrowserBox session recordings."
+            a: "FlipBook supports PDFs, Office documents (PowerPoint, Excel, Word), videos, images, image directories, mixed collection folders with --from-folder, and BrowserBox session recordings."
+        },
+        {
+            q: "What is --from-folder?",
+            a: "--from-folder builds one flattened collection viewer from a folder of supported assets. Optional flipbook.json, collection.json, or manifest.json files can define ordering, titles, links, descriptions, tags, and source metadata."
         },
         {
             q: "Does it require a server?",
@@ -115,7 +128,7 @@ export const siteConfig = {
         },
         {
             q: "Where can I host the output?",
-            a: "Cloudflare Pages, GitHub Pages, AWS S3, Vercel, Netlify, or any standard web server."
+            a: "Cloudflare Pages is built in, and --no-deploy writes the same static site locally for GitHub Pages, AWS S3, Vercel, Netlify, nginx, or any standard web server."
         },
         {
             q: "Is it open source?",
@@ -123,7 +136,7 @@ export const siteConfig = {
         },
         {
             q: "How does it relate to BrowserBox?",
-            a: "FlipBook is built by the same team. It functions as a standalone utility, but can also parse and publish session recordings made using BrowserBox, which requires a BrowserBox license."
+            a: "FlipBook is built by the same team. It functions as a standalone utility for local media, but URL input uses BrowserBox to record and publish a browser session. BrowserBox mode requires a BrowserBox license."
         }
     ]
 };
