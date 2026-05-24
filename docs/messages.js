@@ -104,7 +104,7 @@ export const siteMessages = {
             link: 'https://hypergrid.systems/war.gov-ufo-viewer/microfilm5',
             thumbnailImage: 'https://hypergrid.systems/viewers/items/092-dow-uap-pr35-unresolved-uap-report-greece-october-2023/site/pages/000552.jpg',
             thumbnailAlt: { purpose: 'Describe flagship thumbnail.', audience: 'assistive technology users', current_copy: 'A WAR.GOV/UFO archive frame rendered in the Microfilm viewer' },
-            thumbnailText: { purpose: 'Give scale of flagship demo.', audience: 'skimmers', current_copy: '55k+ frames' },
+            thumbnailText: { purpose: 'Give scale of flagship demo.', audience: 'skimmers', current_copy: '332K+ frames' },
         },
         {
             title: { purpose: 'Name a PDF demo.', audience: 'evaluators', current_copy: 'Bitcoin Whitepaper' },
