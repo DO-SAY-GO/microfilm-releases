@@ -1,5 +1,7 @@
 # Microfilm
 
+## ⏰ Pre-launch - to be notified when we release the first version email microfilm@dosaygo.com
+
 ### Static, scrubbable viewers for documents, video, collections, and browser sessions.
 
 This repository is the public release channel and Cloudflare Pages landing site
