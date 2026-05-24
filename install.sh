@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-RELEASE_REPO="${FLIPBOOK_RELEASE_REPO:-DO-SAY-GO/flipbook-releases}"
-SITE_URL="${FLIPBOOK_SITE_URL:-https://flipbook.browserbox.io}"
-RAW_SELF_URL="${FLIPBOOK_INSTALL_URL:-${SITE_URL}/install.sh}"
-COMMAND_NAME="${FLIPBOOK_COMMAND_NAME:-flipbook}"
-INSTALL_DIR="${FLIPBOOK_INSTALL_DIR:-$HOME/.local/bin}"
+RELEASE_REPO="${MICROFILM_RELEASE_REPO:-${FLIPBOOK_RELEASE_REPO:-DO-SAY-GO/microfilm-releases}}"
+SITE_URL="${MICROFILM_SITE_URL:-${FLIPBOOK_SITE_URL:-https://microfilm.browserbox.io}}"
+RAW_SELF_URL="${MICROFILM_INSTALL_URL:-${FLIPBOOK_INSTALL_URL:-${SITE_URL}/install.sh}}"
+COMMAND_NAME="${MICROFILM_COMMAND_NAME:-${FLIPBOOK_COMMAND_NAME:-microfilm}}"
+INSTALL_DIR="${MICROFILM_INSTALL_DIR:-${FLIPBOOK_INSTALL_DIR:-$HOME/.local/bin}}"
 WRAPPER_PATH="${INSTALL_DIR}/${COMMAND_NAME}"
-DATA_ROOT="${FLIPBOOK_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/flipbook}"
+DATA_ROOT="${MICROFILM_DATA_DIR:-${FLIPBOOK_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/microfilm}}"
 BIN_DIR="${DATA_ROOT}/bin"
 STATE_DIR="${DATA_ROOT}/state"
-BINARY_PATH="${BIN_DIR}/flipbook-cli"
+BINARY_PATH="${BIN_DIR}/microfilm-cli"
 LAST_UPDATE_FILE="${STATE_DIR}/last-update-check"
 INSTALLED_TAG_FILE="${STATE_DIR}/installed-tag"
-UPDATE_INTERVAL_SECONDS="${FLIPBOOK_UPDATE_INTERVAL_SECONDS:-10800}"
+UPDATE_INTERVAL_SECONDS="${MICROFILM_UPDATE_INTERVAL_SECONDS:-${FLIPBOOK_UPDATE_INTERVAL_SECONDS:-10800}}"
 CHECKSUMS_NAME="SHA256SUMS.txt"
 
 log() {
@@ -30,7 +30,7 @@ require_cmd() {
 }
 
 make_temp_dir() {
-  mktemp -d 2>/dev/null || mktemp -d -t flipbook
+  mktemp -d 2>/dev/null || mktemp -d -t microfilm
 }
 
 binary_exists() {
@@ -351,14 +351,14 @@ download_and_install_binary() {
     archive_path="${tmp_dir}/${asset##*/}"
     checksums_path="${tmp_dir}/${CHECKSUMS_NAME}"
 
-    log "Installing FlipBook ${tag}..."
+    log "Installing Microfilm ${tag}..."
     curl -fL --connect-timeout 20 -o "$archive_path" "$archive_url"
     curl -fL --connect-timeout 20 -o "$checksums_path" "$checksums_url"
     verify_archive_checksum "$archive_path" "$asset" "$checksums_path"
     extract_archive "$archive_path" "$tmp_dir"
 
-    candidate="$(find "$tmp_dir" -type f \( -name 'flipbook' -o -name 'flipbook-cli' \) | head -n 1)"
-    [[ -n "$candidate" ]] || fail "Downloaded archive did not contain the FlipBook binary."
+    candidate="$(find "$tmp_dir" -type f \( -name 'microfilm' -o -name 'microfilm-cli' \) | head -n 1)"
+    [[ -n "$candidate" ]] || fail "Downloaded archive did not contain the Microfilm binary."
 
     tmp_binary="${BINARY_PATH}.tmp"
     cp "$candidate" "$tmp_binary"
@@ -370,7 +370,8 @@ download_and_install_binary() {
 }
 
 should_check_for_updates() {
-  if [[ "${FLIPBOOK_SKIP_UPDATE_CHECK:-}" =~ ^(1|true|TRUE|yes|YES)$ ]]; then
+  local skip_update_check="${MICROFILM_SKIP_UPDATE_CHECK:-${FLIPBOOK_SKIP_UPDATE_CHECK:-}}"
+  if [[ "$skip_update_check" =~ ^(1|true|TRUE|yes|YES)$ ]]; then
     return 1
   fi
 
@@ -395,7 +396,7 @@ ensure_binary() {
   local latest_tag current_tag
 
   if ! binary_exists; then
-    latest_tag="$(get_latest_stable_tag)" || fail "Could not determine the latest stable FlipBook release."
+    latest_tag="$(get_latest_stable_tag)" || fail "Could not determine the latest stable Microfilm release."
     download_and_install_binary "$latest_tag"
     return 0
   fi
@@ -413,7 +414,7 @@ ensure_binary() {
 
   current_tag="$(get_local_version_tag)"
   if [[ "$current_tag" == "unknown" || "$current_tag" == "not_installed" ]] || version_is_newer "$latest_tag" "$current_tag"; then
-    log "Updating FlipBook to ${latest_tag}..."
+    log "Updating Microfilm to ${latest_tag}..."
     if ! download_and_install_binary "$latest_tag"; then
       log "Update failed. Continuing with the installed binary."
     fi
@@ -480,7 +481,7 @@ install_wrapper() {
   ensure_install_dir_on_path
   ensure_binary
 
-  log "Installed FlipBook to ${WRAPPER_PATH}."
+  log "Installed Microfilm to ${WRAPPER_PATH}."
   case ":$PATH:" in
     *":${INSTALL_DIR}:"*)
       ;;
@@ -510,7 +511,7 @@ main() {
     local installed_tag
     installed_tag="$(cat "$INSTALLED_TAG_FILE" 2>/dev/null || true)"
     if [[ -n "$installed_tag" ]]; then
-      printf 'flipbook %s\n' "$installed_tag"
+      printf 'microfilm %s\n' "$installed_tag"
       exit 0
     fi
   fi

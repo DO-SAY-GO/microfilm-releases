@@ -1,8 +1,12 @@
-# FlipBook
+# Microfilm
 
-### Static viewers for documents, video, image sets, collections, and browser sessions.
+### Static, scrubbable viewers for documents, video, collections, and browser sessions.
 
-FlipBook turns source media into a polished static viewer you can share as a URL.
+This repository is the public release channel and Cloudflare Pages landing site
+for Microfilm. It publishes installer scripts, release artifacts, checksums, and
+the editable product site at <https://microfilm.browserbox.io>.
+
+Microfilm turns source media into a polished static viewer you can share as a URL.
 Give it one document, one video, an image directory, a whole folder of mixed assets,
 or a BrowserBox-recorded web session; it renders pages/frames, writes a static site,
 and can upload that site to Cloudflare Pages.
@@ -16,47 +20,48 @@ and no backend runtime.
 macOS/Linux:
 
 ```bash
-curl -fsSL https://flipbook.browserbox.io/install.sh | bash
+curl -fsSL https://microfilm.browserbox.io/install.sh | bash
 ```
 
 Windows PowerShell:
 
 ```powershell
-irm https://flipbook.browserbox.io/install.ps1 | iex
+irm https://microfilm.browserbox.io/install.ps1 | iex
 ```
 
 Public releases and checksums live in this repository:
-<https://github.com/DO-SAY-GO/flipbook-releases/releases/latest>
+<https://github.com/DO-SAY-GO/microfilm-releases/releases/latest>
 
 ## Quick examples
 
 ```bash
-flipbook report.pdf
-flipbook deck.pptx --title "Launch deck"
-flipbook demo.mp4 --fps 24 --quality 88
-flipbook ./screenshots --title "Image gallery"
-flipbook --from-folder ./archive --title "Archive reel"
-flipbook --from-folder ./archive --no-deploy --private-output-dir ./out
-flipbook https://example.com --title "Site walkthrough" --open
+microfilm report.pdf
+microfilm deck.pptx --title "Launch deck"
+microfilm demo.mp4 --fps 24 --quality 88
+microfilm ./screenshots --title "Image gallery"
+microfilm --from-folder ./archive --title "Archive reel"
+microfilm --from-folder ./archive --no-deploy --private-output-dir ./out
+microfilm https://example.com --title "Site walkthrough" --open
 ```
 
 ## Input modes
 
 | Mode | Command | Output |
 | --- | --- | --- |
-| PDF / Office document | `flipbook report.pdf` | Static page viewer |
-| Video | `flipbook clip.mp4 --fps 24` | Scrubbable frame viewer |
-| Single image | `flipbook cover.png` | Static image viewer |
-| Image directory | `flipbook ./screenshots` | Gallery-style viewer |
-| Mixed collection folder | `flipbook --from-folder ./archive` | One flattened collection/microfilm viewer |
-| Browser session URL | `flipbook https://example.com` | BrowserBox recording rendered as a static viewer |
+| PDF / Office document | `microfilm report.pdf` | Static page viewer |
+| Video | `microfilm clip.mp4 --fps 24` | Scrubbable frame viewer |
+| Single image | `microfilm cover.png` | Static image viewer |
+| Image directory | `microfilm ./screenshots` | Gallery-style viewer |
+| Mixed collection folder | `microfilm --from-folder ./archive` | One flattened collection/microfilm viewer |
+| Browser session URL | `microfilm https://example.com` | BrowserBox recording rendered as a static viewer |
 
 ## Collection folders
 
 `--from-folder` is for multi-asset archives: PDFs, Office files, videos, images, and
-image folders stitched into one viewer. FlipBook looks for `flipbook.json`,
-`collection.json`, or `manifest.json` to control ordering and metadata; otherwise it
-auto-discovers supported files and sorts them naturally.
+image folders stitched into one viewer. Microfilm looks for `microfilm.json`,
+`collection.json`, or `manifest.json` to control ordering and metadata; it also
+accepts legacy `flipbook.json` manifests. Without a manifest, it auto-discovers
+supported files and sorts them naturally.
 
 Collection playback defaults to the current microfilm standard: 24fps video extraction,
 JPEG quality 88, 300px thumbnails, thumbnail-first/full-frame promotion, and virtualized
@@ -83,9 +88,9 @@ skip Cloudflare Pages deployment unless you pass `--force-pages`.
 ## Notes
 
 - Output is static HTML, CSS, JavaScript, manifests, pages, and thumbnails.
-- FlipBook deploys with Wrangler as a subprocess; it does not reimplement Wrangler.
+- Microfilm deploys with Wrangler as a subprocess; it does not reimplement Wrangler.
 - Missing runtime tools such as FFmpeg, Poppler, Node.js, and Wrangler are installed or
   prompted for when needed.
 - Browser session recording requires BrowserBox from <https://browserbox.io>.
 
-Primary site: <https://flipbook.browserbox.io>
+Primary site: <https://microfilm.browserbox.io>

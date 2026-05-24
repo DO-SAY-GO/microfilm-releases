@@ -4,19 +4,19 @@ try {
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 } catch { }
 
-$ReleaseRepo = if ($env:FLIPBOOK_RELEASE_REPO) { $env:FLIPBOOK_RELEASE_REPO } else { "DO-SAY-GO/flipbook-releases" }
-$SiteUrl = if ($env:FLIPBOOK_SITE_URL) { $env:FLIPBOOK_SITE_URL } else { "https://flipbook.browserbox.io" }
-$RawSelfUrl = if ($env:FLIPBOOK_INSTALL_URL) { $env:FLIPBOOK_INSTALL_URL } else { "$SiteUrl/install.ps1" }
-$DataRoot = if ($env:FLIPBOOK_DATA_DIR) { $env:FLIPBOOK_DATA_DIR } else { Join-Path $env:LOCALAPPDATA "Programs\FlipBook" }
-$InstallDir = if ($env:FLIPBOOK_INSTALL_DIR) { $env:FLIPBOOK_INSTALL_DIR } else { Join-Path $DataRoot "bin" }
-$WrapperPath = Join-Path $InstallDir "flipbook.ps1"
-$CmdShimPath = Join-Path $InstallDir "flipbook.cmd"
-$CliPath = Join-Path $InstallDir "flipbook-cli.exe"
+$ReleaseRepo = if ($env:MICROFILM_RELEASE_REPO) { $env:MICROFILM_RELEASE_REPO } elseif ($env:FLIPBOOK_RELEASE_REPO) { $env:FLIPBOOK_RELEASE_REPO } else { "DO-SAY-GO/microfilm-releases" }
+$SiteUrl = if ($env:MICROFILM_SITE_URL) { $env:MICROFILM_SITE_URL } elseif ($env:FLIPBOOK_SITE_URL) { $env:FLIPBOOK_SITE_URL } else { "https://microfilm.browserbox.io" }
+$RawSelfUrl = if ($env:MICROFILM_INSTALL_URL) { $env:MICROFILM_INSTALL_URL } elseif ($env:FLIPBOOK_INSTALL_URL) { $env:FLIPBOOK_INSTALL_URL } else { "$SiteUrl/install.ps1" }
+$DataRoot = if ($env:MICROFILM_DATA_DIR) { $env:MICROFILM_DATA_DIR } elseif ($env:FLIPBOOK_DATA_DIR) { $env:FLIPBOOK_DATA_DIR } else { Join-Path $env:LOCALAPPDATA "Programs\Microfilm" }
+$InstallDir = if ($env:MICROFILM_INSTALL_DIR) { $env:MICROFILM_INSTALL_DIR } elseif ($env:FLIPBOOK_INSTALL_DIR) { $env:FLIPBOOK_INSTALL_DIR } else { Join-Path $DataRoot "bin" }
+$WrapperPath = Join-Path $InstallDir "microfilm.ps1"
+$CmdShimPath = Join-Path $InstallDir "microfilm.cmd"
+$CliPath = Join-Path $InstallDir "microfilm-cli.exe"
 $StateDir = Join-Path $DataRoot "state"
 $LastUpdateFile = Join-Path $StateDir "last-update-check.txt"
 $InstalledTagFile = Join-Path $StateDir "installed-tag.txt"
 $ChecksumsName = "SHA256SUMS.txt"
-$UpdateIntervalSeconds = if ($env:FLIPBOOK_UPDATE_INTERVAL_SECONDS) { [int]$env:FLIPBOOK_UPDATE_INTERVAL_SECONDS } else { 10800 }
+$UpdateIntervalSeconds = if ($env:MICROFILM_UPDATE_INTERVAL_SECONDS) { [int]$env:MICROFILM_UPDATE_INTERVAL_SECONDS } elseif ($env:FLIPBOOK_UPDATE_INTERVAL_SECONDS) { [int]$env:FLIPBOOK_UPDATE_INTERVAL_SECONDS } else { 10800 }
 $Token = if ($env:GH_TOKEN) { $env:GH_TOKEN } elseif ($env:GITHUB_TOKEN) { $env:GITHUB_TOKEN } else { $null }
 
 function Write-InfoLine {
@@ -31,7 +31,7 @@ function Write-WarnLine {
 
 function Get-GitHubHeaders {
     $headers = @{
-        "User-Agent" = "FlipBook-Installer"
+        "User-Agent" = "Microfilm-Installer"
     }
 
     if ($Token) {
@@ -78,7 +78,7 @@ function Get-LatestStableTag {
     }
 
     if (-not $bestTag) {
-        throw "Could not determine the latest stable FlipBook release."
+        throw "Could not determine the latest stable Microfilm release."
     }
 
     return $bestTag
@@ -168,8 +168,9 @@ function Record-UpdateCheck {
 }
 
 function Should-CheckForUpdates {
-    if ($env:FLIPBOOK_SKIP_UPDATE_CHECK) {
-        $normalized = $env:FLIPBOOK_SKIP_UPDATE_CHECK.ToLowerInvariant()
+    $skipUpdateCheck = if ($env:MICROFILM_SKIP_UPDATE_CHECK) { $env:MICROFILM_SKIP_UPDATE_CHECK } else { $env:FLIPBOOK_SKIP_UPDATE_CHECK }
+    if ($skipUpdateCheck) {
+        $normalized = $skipUpdateCheck.ToLowerInvariant()
         if ($normalized -in @("1", "true", "yes", "y", "on")) {
             return $false
         }
@@ -228,7 +229,7 @@ function Download-And-InstallBinary {
     $archiveName = Get-AssetName
     $downloadUrl = "https://github.com/$ReleaseRepo/releases/download/$Tag/$archiveName"
     $checksumsUrl = "https://github.com/$ReleaseRepo/releases/download/$Tag/$ChecksumsName"
-    $tempRoot = Join-Path ([IO.Path]::GetTempPath()) ("flipbook-" + [guid]::NewGuid().ToString("N"))
+    $tempRoot = Join-Path ([IO.Path]::GetTempPath()) ("microfilm-" + [guid]::NewGuid().ToString("N"))
     $archivePath = Join-Path $tempRoot $archiveName
     $checksumsPath = Join-Path $tempRoot $ChecksumsName
     $extractDir = Join-Path $tempRoot "extract"
@@ -236,18 +237,18 @@ function Download-And-InstallBinary {
     New-Item -ItemType Directory -Path $tempRoot -Force | Out-Null
 
     try {
-        Write-InfoLine "Installing FlipBook $Tag..."
+        Write-InfoLine "Installing Microfilm $Tag..."
         Invoke-WebRequest -Uri $downloadUrl -Headers (Get-GitHubHeaders) -OutFile $archivePath -TimeoutSec 60
         Invoke-WebRequest -Uri $checksumsUrl -Headers (Get-GitHubHeaders) -OutFile $checksumsPath -TimeoutSec 30
         Test-ArchiveChecksum -ArchivePath $archivePath -AssetName $archiveName -ChecksumsPath $checksumsPath
         Expand-Archive -Path $archivePath -DestinationPath $extractDir -Force
 
         $binary = Get-ChildItem $extractDir -Recurse -File |
-            Where-Object { $_.Name -eq "flipbook.exe" } |
+            Where-Object { $_.Name -eq "microfilm.exe" } |
             Select-Object -First 1
 
         if (-not $binary) {
-            throw "Downloaded archive did not contain the FlipBook binary."
+            throw "Downloaded archive did not contain the Microfilm binary."
         }
 
         $tmpBinary = "$CliPath.tmp"
@@ -277,7 +278,7 @@ function Ensure-Binary {
         $latestTag = Get-LatestStableTag
         $currentTag = Get-LocalVersionTag
         if (Test-NeedsUpdate -CandidateTag $latestTag -CurrentTag $currentTag) {
-            Write-InfoLine "Updating FlipBook to $latestTag..."
+            Write-InfoLine "Updating Microfilm to $latestTag..."
             Download-And-InstallBinary -Tag $latestTag
         }
     } catch {
@@ -313,13 +314,13 @@ function Install-Wrapper {
 
     @"
 @echo off
-powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0flipbook.ps1" %*
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0microfilm.ps1" %*
 "@ | Set-Content -Path $CmdShimPath -Encoding ASCII
 
     Add-InstallDirToUserPath
     Ensure-Binary
 
-    Write-InfoLine "Installed FlipBook to $InstallDir."
+    Write-InfoLine "Installed Microfilm to $InstallDir."
     if ($env:Path -notlike "*$InstallDir*") {
         Write-WarnLine "Open a new terminal to pick up the updated PATH."
     }
@@ -334,7 +335,7 @@ function Test-InstallMode {
         $scriptName = [IO.Path]::GetFileName($MyInvocation.MyCommand.Name)
     }
 
-    return ($scriptName -ne "flipbook.ps1")
+    return ($scriptName -ne "microfilm.ps1")
 }
 
 if (Test-InstallMode) {
@@ -351,7 +352,7 @@ $isVersionFlag = ($args.Count -eq 1) -and ($args[0] -in @("--version", "-V"))
 if ($isVersionFlag -and (Test-Path $InstalledTagFile)) {
     $storedTag = (Get-Content $InstalledTagFile -Raw).Trim()
     if ($storedTag) {
-        Write-Output "flipbook $storedTag"
+        Write-Output "microfilm $storedTag"
         exit 0
     }
 }

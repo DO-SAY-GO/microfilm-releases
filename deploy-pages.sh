@@ -3,11 +3,11 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$SCRIPT_DIR"
-PROJECT_NAME="${CF_PAGES_PROJECT_NAME:-flipbook-releases}"
+PROJECT_NAME="${CF_PAGES_PROJECT_NAME:-microfilm-releases}"
 PRODUCTION_BRANCH="${CF_PAGES_PRODUCTION_BRANCH:-main}"
 PUBLISH_DIR="${CF_PAGES_DIR:-docs}"
 DEPLOY_BRANCH="${CF_PAGES_BRANCH:-}"
-CUSTOM_DOMAIN="${CF_PAGES_CUSTOM_DOMAIN:-flipbook.browserbox.io}"
+CUSTOM_DOMAIN="${CF_PAGES_CUSTOM_DOMAIN:-microfilm.browserbox.io}"
 WRANGLER_CHECK_TIMEOUT="${CF_PAGES_WRANGLER_CHECK_TIMEOUT:-45}"
 
 log() {

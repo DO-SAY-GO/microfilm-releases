@@ -1,25 +1,29 @@
-# FlipBook Landing Page
+# Microfilm Landing Page
 
-A fast, static landing page designed to be calm, legible, and easy to deploy.
+A fast, static sales page for the Microfilm product.
 
 ## Structure
 
-- `index.html`: Core structure, messaging, and metadata.
+- `index.html`: Minimal shell and metadata placeholders.
+- `messages.js`: Canonical copy store for visible page text, metadata, demos, pricing, FAQs, and links.
+- `app.js`: DOM rendering logic that prints the page from `messages.js` on load.
 - `styles.css`: All styling, zero dependencies, responsive, custom properties.
-- `config.js`: Centralized data store for demos and FAQs.
-- `app.js`: Lightweight DOM rendering logic for the config.
 
 ## How To Edit Content
 
-1. Copy adjustments: open `index.html` and edit the text directly.
-2. Updating command examples or the main product copy: open `index.html`.
-3. Replacing demo slots: open `config.js` and modify the `demos` array.
-4. Updating FAQs: open `config.js` and modify the `faqs` array.
+1. Open `messages.js`.
+2. Rewrite the `current_copy` values in your own voice.
+3. Keep `purpose` and `audience` notes when useful so future edits preserve intent.
+4. Update demo links, pricing, FAQ answers, and install commands in the same file.
 
 ## Publishing Source
 
 This site is intended to be served from the `docs/` folder via Cloudflare Pages.
-It should describe the current public CLI surface, especially:
+The canonical public release repository is:
+
+- <https://github.com/DO-SAY-GO/microfilm-releases>
+
+It should describe the paid public CLI surface, especially:
 
 - single-file document/video/image conversion
 - positional image-directory gallery mode
@@ -37,7 +41,7 @@ For direct uploads to Cloudflare Pages, run:
 The script will:
 
 - install `wrangler` globally with npm if it is missing
-- create the `flipbook-releases` Pages project if it does not exist
+- create the `microfilm-releases` Pages project if it does not exist
 - deploy `docs/`
 - attach git branch and commit metadata to the deployment
 
@@ -45,5 +49,5 @@ The script will:
 
 The canonical installer entrypoints live in `docs/` so the Pages site serves them directly:
 
-- `https://flipbook.browserbox.io/install.sh`
-- `https://flipbook.browserbox.io/install.ps1`
+- `https://microfilm.browserbox.io/install.sh`
+- `https://microfilm.browserbox.io/install.ps1`

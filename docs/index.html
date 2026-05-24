@@ -3,44 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FlipBook | Static viewers for documents, video, collections, and sessions</title>
-  <meta
-    name="description"
-    content="Turn documents, video, image sets, collection folders, and BrowserBox sessions into fast static viewers hosted on Cloudflare Pages."
-  >
-  <link rel="canonical" href="https://flipbook.browserbox.io/">
+  <title>Microfilm</title>
+  <meta name="description" content="">
+  <link rel="canonical" href="https://microfilm.browserbox.io/">
 
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://flipbook.browserbox.io/">
-  <meta property="og:title" content="FlipBook | Static viewers for documents, video, and collections">
-  <meta property="og:description" content="Turn documents, video, folders of mixed media, and BrowserBox sessions into fast static flipbooks. One-command publishing to Cloudflare Pages.">
-  <meta property="og:image" content="https://flipbook.browserbox.io/assets/branding/flipbook-mark-512.png">
+  <meta property="og:url" content="">
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="">
 
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://flipbook.browserbox.io/">
-  <meta property="twitter:title" content="FlipBook | Static viewers for documents, video, and collections">
-  <meta property="twitter:description" content="Turn documents, video, folders of mixed media, and BrowserBox sessions into fast static flipbooks. One-command publishing to Cloudflare Pages.">
-  <meta property="twitter:image" content="https://flipbook.browserbox.io/assets/branding/flipbook-mark-512.png">
+  <meta property="twitter:url" content="">
+  <meta property="twitter:title" content="">
+  <meta property="twitter:description" content="">
+  <meta property="twitter:image" content="">
 
   <meta name="theme-color" content="#2563eb">
-
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "FlipBook",
-      "operatingSystem": "Windows, Linux, macOS",
-      "applicationCategory": "MultimediaApplication, UtilitiesApplication",
-      "description": "Turn documents, video, image sets, collection folders, and BrowserBox sessions into fast static viewers hosted on Cloudflare Pages.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-  </script>
+  <script id="schema-software" type="application/ld+json"></script>
 
   <link rel="icon" href="./favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -53,32 +33,24 @@
   <nav class="top-nav">
     <div class="container nav-container">
       <a class="brand" href="./">
-        <img class="brand-mark" src="./assets/branding/flipbook-mark-256.png" alt="FlipBook Logo" width="40" height="40">
-        <span>FlipBook</span>
+        <img id="brand-mark" class="brand-mark" src="./assets/branding/microfilm-mark-256.png" alt="" width="40" height="40">
+        <span id="brand-name"></span>
       </a>
-      <div class="nav-links">
-        <a href="#demos">Demos</a>
-        <a href="#usage">Usage</a>
-        <a href="#install">Install</a>
-        <a href="#faq">FAQ</a>
-      </div>
+      <div id="nav-links" class="nav-links"></div>
     </div>
   </nav>
 
   <header class="hero">
     <div class="container narrow">
-      <h1 class="hero-title">Static viewers for complex media.</h1>
-      <p class="hero-subtitle">
-        <strong>Documents, video, image sets, collections, and browser sessions as shareable URLs.</strong>
-      </p>
-      <p class="hero-description">
-        FlipBook converts source media into a polished static viewer with fast scrubbing,
-        thumbnail-to-full loading, microfilm-style playback, and optional Cloudflare Pages publishing.
-      </p>
+      <p id="hero-eyebrow" class="hero-eyebrow"></p>
+      <h1 id="hero-title" class="hero-title"></h1>
+      <p id="hero-subtitle" class="hero-subtitle"></p>
+      <p id="hero-description" class="hero-description"></p>
       <div class="hero-ctas">
-        <a class="button primary" href="#install">Install</a>
-        <a class="button secondary" href="https://github.com/DO-SAY-GO/flipbook-releases/releases/latest">Latest Release</a>
+        <a id="hero-primary-cta" class="button primary" href="#"></a>
+        <a id="hero-secondary-cta" class="button secondary" href="#"></a>
       </div>
+      <div id="hero-proof" class="hero-proof"></div>
       <div class="scrubber-demo" aria-hidden="true">
         <div class="scrubber-frames">
           <div class="frame"></div>
@@ -101,128 +73,66 @@
 
   <section class="section muted">
     <div class="container narrow text-center">
-      <p class="lead-text">
-        The output is just static HTML, CSS, JavaScript, and image assets. No runtime server is
-        required. FlipBook can publish to Cloudflare Pages and gives you back a shareable link,
-        or it can stop at a local static export with <code>--no-deploy</code>.
-      </p>
+      <p id="promise-lead" class="lead-text"></p>
     </div>
   </section>
 
   <section id="demos" class="section">
     <div class="container">
-      <h2 class="section-title">Examples</h2>
+      <p id="demos-kicker" class="section-kicker"></p>
+      <h2 id="demos-title" class="section-title"></h2>
+      <p id="demos-subtitle" class="section-subtitle"></p>
       <div id="demo-container" class="demo-grid"></div>
     </div>
   </section>
 
   <section class="section muted">
     <div class="container">
-      <h2 class="section-title">How It Works</h2>
-      <div class="flow-grid">
-        <div class="flow-step">
-          <h3>Convert</h3>
-          <p>Feed FlipBook a PDF, Office document, image, image directory, video, collection folder, or URL.</p>
-        </div>
-        <div class="flow-step">
-          <h3>Generate</h3>
-          <p>FlipBook renders pages or frames and emits a static viewer with manifests, pages, and thumbnails.</p>
-        </div>
-        <div class="flow-step">
-          <h3>Publish</h3>
-          <p>FlipBook automatically publishes to Cloudflare Pages and hands you a shareable link.</p>
-        </div>
-      </div>
+      <h2 id="flow-title" class="section-title"></h2>
+      <div id="flow-container" class="flow-grid"></div>
+    </div>
+  </section>
+
+  <section id="pricing" class="section">
+    <div class="container">
+      <h2 id="pricing-title" class="section-title"></h2>
+      <p id="pricing-subtitle" class="section-subtitle"></p>
+      <div id="pricing-container" class="pricing-grid"></div>
+    </div>
+  </section>
+
+  <section class="section muted">
+    <div class="container">
+      <h2 id="buyer-title" class="section-title"></h2>
+      <p id="buyer-subtitle" class="section-subtitle"></p>
+      <div id="buyer-container" class="buyer-grid"></div>
     </div>
   </section>
 
   <section id="usage" class="section">
     <div class="container">
-      <h2 class="section-title">Common Commands</h2>
-      <div class="command-grid">
-        <div class="command-card">
-          <h3>Single document</h3>
-          <code>flipbook report.pdf --title "Report"</code>
-        </div>
-        <div class="command-card">
-          <h3>Video fast scan</h3>
-          <code>flipbook clip.mp4 --fps 24 --quality 88</code>
-        </div>
-        <div class="command-card">
-          <h3>Image directory</h3>
-          <code>flipbook ./screenshots --title "Gallery"</code>
-        </div>
-        <div class="command-card">
-          <h3>Collection folder</h3>
-          <code>flipbook --from-folder ./archive --title "Archive reel"</code>
-        </div>
-        <div class="command-card">
-          <h3>Local-only output</h3>
-          <code>flipbook --from-folder ./archive --no-deploy --private-output-dir ./out</code>
-        </div>
-        <div class="command-card">
-          <h3>Browser session</h3>
-          <code>flipbook https://example.com --title "Site tour" --open</code>
-        </div>
-      </div>
-      <p class="small-text text-center mt-4">
-        Collection folders can include <code>flipbook.json</code>, <code>collection.json</code>, or
-        <code>manifest.json</code> for ordering, titles, links, descriptions, tags, and source metadata.
-      </p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container narrow text-block">
-      <h2 class="section-title">What It Is For</h2>
-      <p>
-        FlipBook is useful when the original source format is heavier than the browsing experience
-        needs to be. Instead of shipping an Office stack, a video player, or a full app runtime,
-        you flatten the source into static pages and a viewer that is fast to inspect and easy to host.
-      </p>
-      <p>
-        That makes it a good fit for product docs, release decks, archived videos, mixed evidence
-        folders, captured browser sessions, and any artifact where scrubbing matters more than native editing.
-      </p>
-    </div>
-  </section>
-
-  <section class="section muted browserbox-section">
-    <div class="container narrow">
-      <div class="bb-header">
-        <h2 class="section-title">BrowserBox Integration</h2>
-        <span class="bb-badge">Optional Integration</span>
-      </div>
-      <p>
-        FlipBook works as a standalone utility for local files. If you pass a URL instead, it uses
-        BrowserBox to record a live web session and then publishes that capture as a static artifact.
-      </p>
-      <p class="small-text">
-        BrowserBox requires a separate BrowserBox license for session recording mode.
-      </p>
-      <a class="link-arrow" href="https://browserbox.io">Learn more about BrowserBox</a>
+      <h2 id="usage-title" class="section-title"></h2>
+      <div id="usage-container" class="command-grid"></div>
+      <p id="usage-note" class="small-text text-center mt-4"></p>
     </div>
   </section>
 
   <section id="install" class="section">
     <div class="container narrow">
       <div class="install-card">
-        <h2>Install FlipBook</h2>
-        <p>Install the latest signed binary for your platform.</p>
+        <h2 id="install-title"></h2>
+        <p id="install-description"></p>
         <div class="mt-4">
-          <a class="button primary" href="https://github.com/DO-SAY-GO/flipbook-releases/releases/latest">Browse Releases</a>
+          <a id="install-primary-cta" class="button primary" href="#"></a>
         </div>
-        <div class="mt-4">
-          <code>curl -fsSL https://flipbook.browserbox.io/install.sh | bash</code>
-          <code>irm https://flipbook.browserbox.io/install.ps1 | iex</code>
-        </div>
+        <div id="install-commands" class="mt-4 command-list"></div>
       </div>
     </div>
   </section>
 
   <section id="faq" class="section muted">
     <div class="container narrow">
-      <h2 class="section-title">FAQ</h2>
+      <h2 id="faq-title" class="section-title"></h2>
       <div id="faq-container"></div>
     </div>
   </section>
@@ -231,16 +141,12 @@
     <div class="container footer-content">
       <div class="footer-left">
         <a class="brand" href="./">
-          <img class="brand-mark" src="./assets/branding/flipbook-mark-256.png" alt="FlipBook Logo" width="40" height="40">
-          <span>FlipBook</span>
+          <img id="footer-brand-mark" class="brand-mark" src="./assets/branding/microfilm-mark-256.png" alt="" width="40" height="40">
+          <span id="footer-brand-name"></span>
         </a>
-        <span class="built-by">Built by DOSAYGO</span>
+        <span id="built-by" class="built-by"></span>
       </div>
-      <div class="footer-links">
-        <a href="./">Home</a>
-        <a href="https://browserbox.io">BrowserBox</a>
-        <a href="https://github.com/DO-SAY-GO/flipbook-releases/releases/latest">Releases</a>
-      </div>
+      <div id="footer-links" class="footer-links"></div>
     </div>
   </footer>
 
