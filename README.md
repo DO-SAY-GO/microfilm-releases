@@ -79,8 +79,8 @@ skip Cloudflare Pages deployment unless you pass `--force-pages`.
 | `--from-folder <DIR>` | Build a mixed collection from a folder |
 | `--force-pages` | Override the large-folder Pages deployment guard |
 | `--fps <FPS>` | Set video extraction/playback FPS; default `24` |
-| `--quality <1-100>` | Set JPEG/WebP output quality; default `88` |
-| `--format <jpg|png|webp>` | Choose output image format |
+| `--quality <1-100>` | Set JPEG/WebP output quality; default `88` | 
+| `--format <jpg\|png\|webp>` | Choose output image format |
 | `--width <PX>` | Cap render width when you want smaller output |
 | `--open` | Open the BrowserBox session or final URL |
 | `--yes` | Non-interactive dependency installs |
