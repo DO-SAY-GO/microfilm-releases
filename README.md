@@ -1,6 +1,13 @@
 # Microfilm
 
-## ⏰ Pre-launch - to be notified when we release the first version email microfilm@dosaygo.com
+## 🎬 Live now
+
+```bash
+curl -fsSL https://microfilm.browserbox.io/install.sh | bash
+```
+
+Latest release: <https://github.com/DO-SAY-GO/microfilm-releases/releases/latest> ·
+Questions or feedback: <microfilm@dosaygo.com>
 
 ### Static, scrubbable viewers for documents, video, collections, and browser sessions.
 
@@ -13,9 +20,11 @@ Give it one document, one video, an image directory, a whole folder of mixed ass
 or a BrowserBox-recorded web session; it renders pages/frames, writes a static site,
 and can upload that site to Cloudflare Pages.
 
-The viewer is built for fast inspection: thumbnail-to-full-image loading, scrubbing,
-microfilm-style 24fps playback, keyboard controls, invert mode, virtualized thumbnails,
-and no backend runtime.
+The viewer is built for fast inspection: thumbnail-to-full-frame loading, scrubbing
+from the slider, the viewport, or the canvas filmstrip (drag, wheel, or click it),
+storyboard-backed previews that keep frames visible at any connection speed,
+microfilm-style 24fps playback, global keyboard controls, invert mode, and no
+backend runtime.
 
 ## Install
 
@@ -66,9 +75,9 @@ accepts legacy `flipbook.json` manifests. Without a manifest, it auto-discovers
 supported files and sorts them naturally.
 
 Collection playback defaults to the current microfilm standard: 24fps video extraction,
-JPEG quality 88, 300px thumbnails, thumbnail-first/full-frame promotion, and virtualized
-thumbnail navigation. Large folders with more than 20,000 source files build locally but
-skip Cloudflare Pages deployment unless you pass `--force-pages`.
+JPEG quality 88, 300px thumbnails, thumbnail-first/full-frame promotion, and a canvas
+filmstrip that scrubs any number of frames. Large folders with more than 20,000 source
+files build locally but skip Cloudflare Pages deployment unless you pass `--force-pages`.
 
 ## Useful options
 
